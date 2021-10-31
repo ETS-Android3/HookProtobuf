@@ -1,3 +1,4 @@
+include ':HookProtobuf'
 def excludeApp = false
 def proFile = file("./upload.properties")
 if (proFile != null) {

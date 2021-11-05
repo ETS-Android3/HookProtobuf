@@ -9,13 +9,13 @@ import org.gradle.api.Project
 @PluginConfig("bytex.HookProtobuf")
 open class HookProtobufPlugin : CommonPlugin<ProtobufExtention, ProtobufContext>() {
     override fun getContext(project: Project, android: AppExtension, extension: ProtobufExtention): ProtobufContext {
-        extension.enableInDebug(true)
         return ProtobufContext(project, android, extension)
     }
 
     override fun transform(relativePath: String, chain: ClassVisitorChain): Boolean {
-        if (relativePath.contains("CodedInputStream")) {
-            context.logger.i("find it TestAsm.class")
+        if (relativePath=="com/google/protobuf/CodedInputStream.class") {
+            context.logger.i("HookProtobufPlugin success CodedInputStream.class")
+            println("HookProtobufPlugin success CodedInputStream.class")
             chain.connect(ClassVisitor())
         } else if (relativePath.contains("TestAsm")) {
             context.logger.i("find it TestAsm.class")
